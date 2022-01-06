@@ -8,6 +8,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -90,4 +92,32 @@ class RestaurantTest {
                 ()->restaurant.removeFromMenu("French fries"));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    //>>>>>>>>>>>>>>>>>>>>>>>>>>>>ORDER TOTAL<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    @Test
+    public void getOrderValue_should_return_sum_of_prices_of_all_items_selected(){
+        addTestRestaurant();
+
+        List<String> selectedItems = new ArrayList<>();
+        selectedItems.add("Sweet corn soup");
+        selectedItems.add("Vegetable lasagne");
+
+        assertEquals(388,restaurant.getOrderValue(selectedItems));
+    }
+    @Test
+    public void getOrderValue_should_return_reduced_price_after_item_is_removed(){
+        addTestRestaurant();
+
+        List<String> selectedItems = new ArrayList<>();
+        selectedItems.add("Sweet corn soup");
+        selectedItems.add("Vegetable lasagne");
+
+        int orderValue = restaurant.getOrderValue(selectedItems);
+        int newOrderValue = restaurant.findItemByName(selectedItems.get(1)).getPrice();
+        selectedItems.remove(1);
+        assertEquals(orderValue - newOrderValue, restaurant.getOrderValue(selectedItems));
+    }
+
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<ORDER TOTAL>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
