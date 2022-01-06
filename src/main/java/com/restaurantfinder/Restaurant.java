@@ -1,3 +1,5 @@
+package com.restaurantfinder;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -6,8 +8,8 @@ import java.util.List;
 public class Restaurant {
     private String name;
     private String location;
-    public LocalTime openingTime;
-    public LocalTime closingTime;
+    private LocalTime openingTime;
+    private LocalTime closingTime;
     private List<Item> menu = new ArrayList<Item>();
 
     public Restaurant(String name, String location, LocalTime openingTime, LocalTime closingTime) {
@@ -18,11 +20,19 @@ public class Restaurant {
     }
 
     public boolean isRestaurantOpen() {
-        LocalTime time = LocalTime.now();
-        if(time.compareTo(closingTime) < 0 && time.compareTo(openingTime) >= 0){
+
+        if(this.getCurrentTime().compareTo(this.getClosingTime()) < 0 && this.getCurrentTime().compareTo(this.getOpeningTime()) >= 0){
             return true;
         }
         return false;
+    }
+
+    public LocalTime getClosingTime() {
+        return closingTime;
+    }
+
+    public LocalTime getOpeningTime() {
+        return openingTime;
     }
 
     public LocalTime getCurrentTime(){ return  LocalTime.now(); }

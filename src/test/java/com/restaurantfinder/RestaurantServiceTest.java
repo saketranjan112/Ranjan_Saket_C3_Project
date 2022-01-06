@@ -1,3 +1,7 @@
+package com.restaurantfinder;
+
+import com.restaurantfinder.RestaurantService;
+import com.restaurantfinder.restaurantNotFoundException;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalTime;
